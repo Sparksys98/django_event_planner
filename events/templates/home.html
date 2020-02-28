@@ -9,7 +9,10 @@
       {% if request.user.is_anonymous %}
         <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Sign up to find events!</a>
       {% else %}
-        <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
+        <a href="{% url 'event-list' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
+      {% endif %}
+      {% if not request.user.is_anonymous %}
+      <a href="{% url 'create-event' %}" class="btn btn-primary btn-xl rounded-pill mt-1">Create events!</a>
       {% endif %}
     </div>
   </div>

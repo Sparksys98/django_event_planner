@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Detail{% endblock title %}
+
+{% block content %}
+
+<br>
+<div class="card">
+  <h5 class="card-header">Event Details</h5>
+  <!-- {% if restaurant.logo %}
+    <img class="card-img-top" src="{{restaurant.logo.url}}" alt="Hey Noob, look at me...">
+  {% endif %} -->
+  <div class="card-body">
+    <h5 class="card-title">{{event.name}}</h5>
+    <img class="card-img-top" height="100px" width="550px" src="{{event.image.url}}" alt="Card image cap">
+    <p class="card-text">{{event.descriptionx}}</p>
+    <p class="card-text">Date: {{event.date}}</p>
+    <p class="card-text">By: {{event.added_by}}</p>
+    {% if request.user == event.added_by %}
+    <a href="{% url 'event-update' event.id %}" class="btn btn-primary btn-xl rounded-pill mt-5">Update</a>
+    {% endif %}
+  </div>
+  <!-- <div class="card-body">
+     <h5 class="card-title">Our Items</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for item in items %}
+      <li class="list-group-item">
+        <p><b>{{item.name}}</b></p>
+        <p>{{item.description|linebreaks}}</p>
+        <p>{{item.price}} JD</p>
+      </li>
+    {% endfor %}
+  </ul> -->
+  <!-- <div class="card-body">
+    <div class="row text-center">
+        {% if request.user.is_staff %}
+        <div class="col-md-4">
+            <a href="{% url 'restaurant-delete' restaurant.id %}" class="btn btn-outline-danger btn-block">Delete</a>
+        </div>
+        {% else %}
+        {% if request.user == restaurant.owner %}
+        <div class="col-md-4">
+            <a href="{% url 'restaurant-update' restaurant.id %}" class="btn btn-outline-primary btn-block">Update</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'item-create' restaurant.id %}" class="btn btn-outline-success btn-block">Add Item</a>
+        </div>
+         {% endif %}
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %} -->
