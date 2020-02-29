@@ -11,11 +11,23 @@
     <img class="card-img-top" src="{{restaurant.logo.url}}" alt="Hey Noob, look at me...">
   {% endif %} -->
   <div class="card-body">
-    <h5 class="card-title">{{event.name}}</h5>
+    <h5 class="card-title">{{event.title}}</h5>
     <img class="card-img-top" height="100px" width="550px" src="{{event.image.url}}" alt="Card image cap">
-    <p class="card-text">{{event.descriptionx}}</p>
-    <p class="card-text">Date: {{event.date}}</p>
+    <p class="card-text">{{event.description}}</p>
+    <p class="card-text">Location: {{event.location}}</p>
+    <p class="card-text">Date: {{event.datetime}}</p>
+    <p class="card-text">Available Seats: {{event.seats}}</p>
     <p class="card-text">By: {{event.added_by}}</p>
+    <!-- <input type="text" name="" value="#Tickets">
+    <a href="{% url 'event-update' event.id %}" class="btn btn-primary btn-xl rounded-pill mt-5"><button type="button" name="Booking">Book</button></a> -->
+    <div>
+<form method="post">
+{% csrf_token %}
+<input name="tickets" type="text" class="query-search"
+placeholder="Enter Tickets Number...">
+<input class="btn btn-primary" type="submit" value="Submit">
+</form>
+</div>
     {% if request.user == event.added_by %}
     <a href="{% url 'event-update' event.id %}" class="btn btn-primary btn-xl rounded-pill mt-5">Update</a>
     {% endif %}

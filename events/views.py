@@ -1,12 +1,19 @@
+from django.db.models import F
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from .forms import UserSignup, UserLogin, CreateForm
 from django.contrib import messages
-from .models import Event
+from .models import Event, Booking
+from datetime import datetime
 
 def home(request):
-    return render(request, 'home.html')
+    # results = Event.objects.filter(title__icontains=query)
+    events = Event.objects.all()
+    context = {
+    "events": events,}
+    # "results": results
+    return render(request, 'home.html', context)
 
 class Signup(View):
     form_class = UserSignup
@@ -65,10 +72,16 @@ class Logout(View):
 def item_list(request):
     if request.user.is_anonymous:
         return redirect("login")
-    events = Event.objects.all()
+    events = Event.objects.filter(datetime__gte=datetime.today())
     context = {
         "events": events,    }
     return render(request, 'event_list.html', context)
+
+def my_list(request):
+    events = Event.objects.all()
+    context = {
+        "events": events,}
+    return render(request, 'my_list.html', context)
 
 def create_event(request):
     if request.user.is_anonymous:
@@ -88,10 +101,18 @@ def create_event(request):
 
 def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
-    # items = Event.objects.filter(event=event)
+    booking=Booking.objects.all()
+    if request.method == "POST":
+        tickets = request.POST.get('tickets')
+        # Do the rest of the logic here
+
+        tickets=str(tickets)+"10"
+
+        return redirect('event-list')
     context = {
         "event": event,
-        # "items": items,
+        "booking": booking,
+
     }
     return render(request, 'event_detail.html', context)
 
@@ -111,3 +132,20 @@ def event_update(request, event_id):
         "form":form,
     }
     return render(request, 'event_update.html', context)
+
+def dashboard(request):
+    return render(request,'dashboard.html')
+
+# def view_detail(request):
+#     booking_obj=Booking.objects.all()
+#     booking=Booking.objects.filter(tickets_num)
+#     value = request.POST.get('search','')
+#     seat_num
+#     return value-booking
+
+def add_points(request):
+            if request.POST.get(''):
+                profil = get_object_or_404(Event, created_by=request.user)
+                profil.seats = F('seats') + 10
+                profil.save(update_fields=["seats"])
+                return render(request, 'event_detail.html')

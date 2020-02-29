@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Event
+
+from .models import Event, Booking
 class UserSignup(forms.ModelForm):
     class Meta:
         model = User
@@ -23,4 +24,9 @@ class CreateForm(forms.ModelForm):
 class DetailForm(forms.ModelForm):
     class Meta:
         model=Event
-        fields=[ 'name', 'image', 'description', 'date','added_by']
+        fields=[ 'title', 'image', 'description', 'datetime','location','seats','added_by']
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model=Booking
+        fields= '__all__'

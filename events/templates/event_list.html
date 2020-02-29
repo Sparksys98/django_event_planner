@@ -6,7 +6,7 @@
           <div class="card-body">
             <br><br><br><br>
             {% for event in events %}
-            <h5 class="card-title">{{ event.name }}</h5>
+            <h5 class="card-title">{{ event.title }}</h5>
             <img class="card-img-top" height="100px" width="550px" src="{{event.image.url}}" alt="Card image cap">
             <a href="{% url 'event-detail' event.id %}" class="btn btn-primary btn-xl rounded-pill mt-1">Detail</a>
             {% endfor %}

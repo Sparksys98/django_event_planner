@@ -16,12 +16,37 @@
       {% endif %}
     </div>
   </div>
+
   <div class="bg-circle-1 bg-circle"></div>
   <div class="bg-circle-2 bg-circle"></div>
   <div class="bg-circle-3 bg-circle"></div>
   <div class="bg-circle-4 bg-circle"></div>
 </header>
+<body>
+<div class="row">
+          <div class="card-body">
+            <br><br><br><br>
+            {% for event in events %}
+  <!-- <form method="GET">
+  <input class="searchfield" type="text" id="searchbox" value="{{ results.title }}" placeholder="Search..."><br>
+  </form><br> -->
+            <h5 class="card-title">{{ event.title }}</h5>
+            <img class="card-img-top" height="100px" width="550px" src="{{event.image.url}}" alt="Card image cap">
+            {% if request.user.is_anonymous %}
+            <a href="{% url 'login'  %}" class="btn btn-primary btn-xl rounded-pill mt-1">Detail</a>
+            {% endif %}
+            {% if not request.user.is_anonymous %}
+            <a href="{% url 'event-detail' event.id %}" class="btn btn-primary btn-xl rounded-pill mt-1">Detail</a>
+            {% endif %}
+            {% endfor %}
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item text-center">
+            </li>
+          </ul>
 
+        </div>
+        </body>
 
 
 {% endblock %}
