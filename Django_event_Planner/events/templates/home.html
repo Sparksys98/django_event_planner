@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="masthead text-center text-white">
+  <div class="masthead-content">
+    <div class="container">
+      <h1 class="masthead-heading mb-0">All the events,</h1>
+      <h2 class="masthead-subheading mb-0">You could ever want...</h2>
+      {% if request.user.is_anonymous %}
+        <a href="{% url 'signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Sign up to find events!</a>
+      {% else %}
+        <a href="{% url 'event-list' %}" class="btn btn-primary btn-xl rounded-pill mt-5">Find events!</a>
+      {% endif %}
+      {% if not request.user.is_anonymous %}
+      <a href="{% url 'create-event' %}" class="btn btn-primary btn-xl rounded-pill mt-1">Create events!</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="bg-circle-1 bg-circle"></div>
+  <div class="bg-circle-2 bg-circle"></div>
+  <div class="bg-circle-3 bg-circle"></div>
+  <div class="bg-circle-4 bg-circle"></div>
+</header>
+<body>
+<div class="row">
+          <div class="card-body">
+            {% for result in search_result %}
+          <a> {{result.title}} </a>
+          {% endfor %}
+          <h1>Upcoming Events</h1>
+
+                        <form class="form-inline my-2 my-lg-0" action="{% url 'home' %}">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" name="search" >
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                      </form>
+
+            {% for event in events %}
+
+
+            <h5 class="card-title">{{ event.title }}</h5>
+            {% if request.user.is_anonymous %}
+            <a href="{% url 'login'  %}" class="btn btn-primary btn-xl rounded-pill mt-1">Detail</a>
+            {% endif %}
+            {% if not request.user.is_anonymous %}
+            <a href="{% url 'event-detail' event.id %}" class="btn btn-primary btn-xl rounded-pill mt-1">Detail</a>
+            {% endif %}
+            <br><br><br><br>
+            {% endfor %}
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item text-center">
+            </li>
+          </ul>
+
+        </div>
+        </body>
+
+
+{% endblock %}

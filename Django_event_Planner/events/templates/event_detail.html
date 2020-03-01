@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Detail{% endblock title %}
+
+{% block content %}
+
+<br>
+<div class="card">
+  <h5 class="card-header">Event Details</h5>
+  <div class="card-body">
+    <h5 class="card-title">{{event.title}}</h5>
+    <p class="card-text">{{event.description}}</p>
+    <p class="card-text">Location: {{event.location}}</p>
+    <p class="card-text">Date: {{event.datetime}}</p>
+    <p class="card-text">Available Seats: {{event.seats}}</p>
+    <p class="card-text">By: {{event.added_by}}</p>
+    <a href= "{% url 'event-book' event.id %}" ><button type="submit" class="btn btn-primary btn-xl rounded-pill mt-5" name="button">Book</button></a>
+
+  <h3>{{text}}</h3>
+
+    {% if request.user == event.added_by %}
+    <a href="{% url 'event-update' event.id %}" class="btn btn-primary btn-xl rounded-pill mt-5">Update</a>
+    {% endif %}
+  </div>
+
+{% endblock content %}
