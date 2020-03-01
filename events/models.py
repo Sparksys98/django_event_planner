@@ -15,7 +15,7 @@ class Event(models.Model):
     datetime = models.DateField()
     seats= models.PositiveIntegerField()
     added_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-
+    #Method to update the tickets number:
     def tickets_left(self):
         return self.seats-self.tickets_num
 

@@ -8,11 +8,9 @@ from .models import Event, Booking
 from datetime import datetime
 
 def home(request):
-    # results = Event.objects.filter(title__icontains=query)
     events = Event.objects.all()
     context = {
     "events": events,}
-    # "results": results
     return render(request, 'home.html', context)
 
 class Signup(View):
@@ -102,11 +100,10 @@ def create_event(request):
 def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
     booking=Booking.objects.all()
+    #Trying the booking code here, but it's not working
     if request.method == "POST":
         tickets = request.POST.get('tickets')
-        # Do the rest of the logic here
-
-        tickets=str(tickets)+"10"
+        # Trying to do the rest of the logic here...
 
         return redirect('event-list')
     context = {
@@ -142,10 +139,3 @@ def dashboard(request):
 #     value = request.POST.get('search','')
 #     seat_num
 #     return value-booking
-
-def add_points(request):
-            if request.POST.get(''):
-                profil = get_object_or_404(Event, created_by=request.user)
-                profil.seats = F('seats') + 10
-                profil.save(update_fields=["seats"])
-                return render(request, 'event_detail.html')
